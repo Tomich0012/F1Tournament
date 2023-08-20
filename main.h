@@ -15,21 +15,21 @@
 
 //Structure d'une voiture. Sera manipulée par les processus fils.
 struct Voiture{
-  int numero;
-  int pit;
-  int out;
-  double best[4];
-  double nbTour;
-  double sections[3]; 
-  double tourActuel;
+  int numero; //Numéro de la voiture
+  int pit; //Nombre de pit stop
+  int out; //Booléen qui indique si la voiture est out ou non
+  double best[4]; //Meilleur temps de la voiture
+  double nbTour; //Nombre de tour effectué par la voiture
+  double sections[3];  //Temps de chaque section
+  double tourActuel; //Temps du tour actuel
 };
 
 //Structure de la mémoire partagée.
 struct MemoirePartagee{
-  struct Voiture tableauV[20];
-  struct Voiture courseFinale[20];
-  int nbVoituresFini;
-  int nbTourAFaire;
+  struct Voiture tableauV[20]; //Tableau de voitures de 20 voitures 
+  struct Voiture courseFinale[20]; //Tableau de voitures pour la course finale
+  int nbVoituresFini; //Nombre de voitures qui ont fini la course
+  int nbTourAFaire; //Nombre de tour à faire
 };
 
 // Process pour un tour

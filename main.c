@@ -8,95 +8,99 @@ sem_t semaphore;
 // Process pour un tour
 //renvoie le temps du tour
 double calculTour(struct Voiture *v){
-  double tempsPit, tour = 0.0, section;
-  if (out() == 1) {
-    v->out = 1;
+  double tempsPit, tour = 0.0, section; //Temps du tour, temps de chaque section
+  if (out() == 1) { //Si la voiture est out
+    v->out = 1; //On met le booléen out à 1
   }
-  else{
-    for(int i = 0; i < 3; i++){
-      section = calculSection();
-      if(i == 2){
-        tempsPit = stand();
-        if (tempsPit > 0) {
-          v->pit += 1;
-          section += tempsPit;
+  else{ //Sinon
+    for(int i = 0; i < 3; i++){ //On calcule le temps de chaque section
+      section = calculSection(); //On calcule le temps de la section
+      if(i == 2){ //Si c'est la dernière section
+        tempsPit = stand(); //On calcule le temps du stand
+        if (tempsPit > 0) { //Si le temps du stand est supérieur à 0
+          v->pit += 1; //On incrémente le nombre de pit stop
+          section += tempsPit; //On ajoute le temps du stand à la section
         }
       }
-      tour += section;
-      msleep(section);
-      v->sections[i] = section;
-      v->nbTour += 1;
-      v->best[i] = meilleurTemps(section, v->best[i]);
+      tour += section; //On ajoute le temps de la section au temps du tour
+      msleep(section); //On attend le temps de la section
+      v->sections[i] = section; //On ajoute le temps de la section au tableau des sections
+      v->nbTour += 1; //On incrémente le nombre de tour
+      v->best[i] = meilleurTemps(section, v->best[i]); //On compare le temps de la section au meilleur temps de la section
     }
-    v->best[3] = meilleurTemps(tour, v->best[3]);
-    v->tourActuel= tour;
+    v->best[3] = meilleurTemps(tour, v->best[3]); //On compare le temps du tour au meilleur temps du tour
+    v->tourActuel= tour; //On ajoute le temps du tour à la variable tourActuel
   }
-  return tour;
+  return tour; //On renvoie le temps du tour
 }
 
-void courseFinale(struct MemoirePartagee *tabVoitures, int i){
-  struct Voiture v = tabVoitures->tableauV[i];
-  struct Voiture *pointeurV = &v;
-  initVarVoiture(pointeurV);
+void courseFinale(struct MemoirePartagee *tabVoitures, int i){ //i = numéro de la voiture
+  struct Voiture v = tabVoitures->tableauV[i]; //On récupère la voiture
+  struct Voiture *pointeurV = &v; //On crée un pointeur sur la voiture
+  initVarVoiture(pointeurV); //On initialise les variables de la voiture
 
 
-  v.nbTour= 0;
+  v.nbTour= 0; //On initialise le nombre de tour à 0
 
-  sleep(1);
+  sleep(1); //On attend 1 seconde
   
-  while (v.nbTour < tabVoitures->nbTourAFaire && v.out == 0) { //tabVoitures->nbTourAFaire
-    
+  while (v.nbTour < tabVoitures->nbTourAFaire && v.out == 0) { //tabVoitures->nbTourAFaire 
     calculTour(pointeurV);
     sem_wait(&semaphore);
     tabVoitures->tableauV[i] = v;
     sem_post(&semaphore); // Libération du sémaphore
     msleep(1000);
   }
-  tabVoitures->nbVoituresFini += 1;
-  exit(0);
+  tabVoitures->nbVoituresFini += 1; //On incrémente le nombre de voitures qui ont fini la course
+  exit(0); //On quitte le processus
 }
 
-void essaisEtQualifications(struct MemoirePartagee *tabVoitures, int i, double tempsTotal){
-  struct Voiture v;
-  struct Voiture *pointeurV = &v;
-  if(tempsTotal >= 1080){ // soit essais soit qualif 1
-    v = init_voiture(i);
+void essaisEtQualifications(struct MemoirePartagee *tabVoitures, int i, double tempsTotal){ //i = numéro de la voiture
+  struct Voiture v; //On crée une voiture
+  struct Voiture *pointeurV = &v; //On crée un pointeur sur la voiture
+  if(tempsTotal >= 1080){ // soit essais soit qualif 1 
+    v = init_voiture(i); //On initialise la voiture
   }
-  else{
-    v = tabVoitures->tableauV[i];
-    initVarVoiture(pointeurV);
+  else{ 
+    v = tabVoitures->tableauV[i]; //On récupère la voiture
+    initVarVoiture(pointeurV); //On initialise les variables de la voiture
 
   }
-  double tempsEnCours = 0;
+  double tempsEnCours = 0; 
   //Boucle course
-  while (tempsEnCours < tempsTotal && v.out == 0) {
-    tempsEnCours += calculTour(pointeurV);
-    tabVoitures->tableauV[i] = v;
-    if (tempsTotal == 5400 || tempsTotal == 3600) {
+  while (tempsEnCours < tempsTotal && v.out == 0) { //tempsTotal
+    tempsEnCours += calculTour(pointeurV); //On calcule le temps du tour
+    tabVoitures->tableauV[i] = v; //On met à jour la voiture dans le tableau
+    if (tempsTotal == 5400 || tempsTotal == 3600) { // si c'est un essaie
 	sleep(1.5);
     }
-    else{
-	sleep(1.5);
+    else{ 
+	sleep(1.5); 
     }
   }
-  tabVoitures->nbVoituresFini += 1;
+  tabVoitures->nbVoituresFini += 1; //On incrémente le nombre de voitures qui ont fini la course
   exit(0);
 }
 
-void afficheTab(struct MemoirePartagee *tabVoitures, int choix){
-  struct MemoirePartagee mem = *tabVoitures;
-  struct MemoirePartagee *pointeurMem = &mem;
-  int finale = 0;
-  if(choix == 2){
-    triVoiture(pointeurMem->tableauV, 5);
-    finale = 1;
+void afficheTab(struct MemoirePartagee *tabVoitures, int choix){ 
+  //choix = 0 pour essais 1, 1 pour essais 2, 2 pour essais 3, 3 pour qualif 1, 4 pour qualif 2, 5 pour qualif 3, 6 pour course finale
+  struct MemoirePartagee mem = *tabVoitures; //On récupère la mémoire partagée
+  struct MemoirePartagee *pointeurMem = &mem; //On crée un pointeur sur la mémoire partagé | 
+
+  //pas sur de ça
+  int finale = 0; //Booléen qui indique si c'est la finale ou non
+  if(choix == 2){  //Si c'est la finale
+    triVoiture(pointeurMem->tableauV, 5); //On trie le tableau des voitures
+    finale = 1; //On met le booléen finale à 1
   }
-  else{
-    triVoiture(pointeurMem->tableauV, 3);
+
+
+  else{ 
+    triVoiture(pointeurMem->tableauV, 3); //On trie le tableau des voitures
   }
   system("clear");
   switch (choix) {
-    case 0:
+    case 0: 
     printf("__________________________________________________________________________________________________________\n");
     printf("|                                             ESSAIS 1                               		         |\n");
     break;
@@ -173,12 +177,12 @@ void triQualifications(struct MemoirePartagee *tabVoitures, int choix){
   switch (choix) {
     case 20:
     for (int i = 15; i < 20; i++) {
-      tabVoitures->courseFinale[i] = tabVoitures->tableauV[i];
-      initVarVoiture(&tabVoitures->tableauV[i]);
+      tabVoitures->courseFinale[i] = tabVoitures->tableauV[i]; 
+      initVarVoiture(&tabVoitures->tableauV[i]); 
       tabVoitures->tableauV[i].best[3] = i + 1000;
     }
     break;
-    case 15:
+    case 15: 
     for (int i = 10; i < 15; i++) {
       tabVoitures->courseFinale[i] = tabVoitures->tableauV[i];
       initVarVoiture(&tabVoitures->tableauV[i]);
