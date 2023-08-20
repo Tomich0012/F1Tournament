@@ -1,5 +1,8 @@
 #include "main.h"
 #include "utils.c"
+#include <semaphore.h>
+
+sem_t semaphore;
 
 
 // Process pour un tour
@@ -42,10 +45,11 @@ void courseFinale(struct MemoirePartagee *tabVoitures, int i){ //i = numéro de 
   sleep(1); //On attend 1 seconde
   
   while (v.nbTour < tabVoitures->nbTourAFaire && v.out == 0) { //tabVoitures->nbTourAFaire 
-    
-    calculTour(pointeurV); //On calcule le temps du tour
-    tabVoitures->tableauV[i] = v; //On met à jour la voiture dans le tableau
-    msleep(1000); //On attend 1 seconde
+    calculTour(pointeurV);
+    sem_wait(&semaphore);
+    tabVoitures->tableauV[i] = v;
+    sem_post(&semaphore); // Libération du sémaphore
+    msleep(1000);
   }
   tabVoitures->nbVoituresFini += 1; //On incrémente le nombre de voitures qui ont fini la course
   exit(0); //On quitte le processus
@@ -217,6 +221,7 @@ void fonctionPere(struct MemoirePartagee *tabVoitures, int choix){
 //Lance le programme
 int main(int argc, char *argv[]){
   struct MemoirePartagee *tabVoitures;
+  sem_init(&semaphore, 0, 1); // 0 indique que le sémaphore est local à ce processus, 1 est la valeur initiale du sémaphore
 
   int shmid = shmget(1009, sizeof(tabVoitures), IPC_CREAT | 0666);
   tabVoitures = shmat(shmid, NULL, 0);
@@ -344,5 +349,6 @@ int main(int argc, char *argv[]){
       break;
     }
   }
+  sem_destroy(&semaphore);
   return 0;
 }
