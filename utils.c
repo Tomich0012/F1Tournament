@@ -150,13 +150,13 @@ void docRecap(struct MemoirePartagee *tabVoitures, int choix){
         fprintf(fichier,"___________________________________\n");
         switch (choix) {
             case 0:
-                fprintf(fichier,"|             ESSAIS 1            |\n");
+                fprintf(fichier,"|             FREE PRACTICE 1            |\n");
                 break;
 	    case 3:
-                fprintf(fichier,"|             ESSAIS 2            |\n");
+                fprintf(fichier,"|             FREE PRACTICE 2           |\n");
                 break;
             case 1:
-                fprintf(fichier,"|             ESSAIS 3            |\n");
+                fprintf(fichier,"|             FREE PRACTICE 3           |\n");
                 break;
             case 20:
                 fprintf(fichier,"|         QUALIFICATIONS 1        |\n");
@@ -168,14 +168,14 @@ void docRecap(struct MemoirePartagee *tabVoitures, int choix){
                 fprintf(fichier,"|         QUALIFICATIONS 3        |\n");
                 break;
             case 2:
-                fprintf(fichier,"|          COURSE FINALE          |\n");
+                fprintf(fichier,"|          RACE          |\n");
                 break;
         }
         if (choix < 4) {
             choix = 20;
         }
         fprintf(fichier,"|_________________________________|\n");
-        fprintf(fichier,"| Voiture |   Tour    | Pit | Out |\n");
+        fprintf(fichier,"| Car |   Lap    | Pit | Out |\n");
         fprintf(fichier,"|---------|-----------|-----|-----|\n");
         if(finale == 1){
           for(int i = 0; i < choix; i++){
@@ -207,6 +207,6 @@ void docRecap(struct MemoirePartagee *tabVoitures, int choix){
         fclose(fichier);
     }
     else{
-        printf("Ouverture du fichier recap impossible");
+        printf("An error occured while opening the file\n");
     }
 }
