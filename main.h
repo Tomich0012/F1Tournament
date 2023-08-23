@@ -30,6 +30,7 @@ struct SharedMemory{
   struct Car finalRace[20]; //Tableau de voitures pour la course finale
   int nbrCarFinished; //Nombre de voitures qui ont fini la course
   int lapNbrToDo; //Nombre de tour à faire
+  sem_t semaphore; //Sémaphore
 };
 
 // Process pour un tour
