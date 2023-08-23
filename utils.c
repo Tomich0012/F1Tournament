@@ -159,7 +159,7 @@ void recapFile(struct SharedMemory *carsTab, int pick){
         fprintf(file,"___________________________________\n");
         switch (pick) {
             case ESSAI1:
-                fprintf(file,"|             FREE PRACTICE 1            |\n");
+                fprintf(file,"|             FREE PRACTICE 1           |\n");
                 break;
 	          case ESSAI2:
                 fprintf(file,"|             FREE PRACTICE 2           |\n");
@@ -168,13 +168,13 @@ void recapFile(struct SharedMemory *carsTab, int pick){
                 fprintf(file,"|             FREE PRACTICE 3           |\n");
                 break;
             case QUALIF1:
-                fprintf(file,"|         Q 1        |\n");
+                fprintf(file,"|                   Q 1                 |\n");
                 break;
             case QUALIF2:
-                fprintf(file,"|         Q 2        |\n");
+                fprintf(file,"|                   Q 2                |\n");
                 break;
             case QUALIF3:
-                fprintf(file,"|         Q 3        |\n");
+                fprintf(file,"|                   Q 3               |\n");
                 break;
             case FINALE:
                 fprintf(file,"|          FINAL RACE          |\n");
