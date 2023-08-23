@@ -159,7 +159,7 @@ void tabDisplay(struct SharedMemory *carsTab, int pick){
         
   if(final == 1){ //------------AFFICHE LA FINALE-------------------------
 	printf("|____________________________________________________________________________________________________________________|\n");
-  	printf("| Car  | Best Lap   |      Current Lap     |       S 1    |      S 2     |     S 3      |  Pit  |  Out  |No. of laps|\n");
+  	printf("| Car  | Best lap   |      Current lap     |       S 1    |      S 2     |     S 3      |  Pit  |  Out  | No of lap|\n");
   	printf("|----------|-------------|------------------|--------------|--------------|--------------|-------|-------|-----------|\n");
     for(int i = 0; i < nbrCars; i++){
         printf("|   %2d     |  %.3f\"   |      %.3f\"    |    %.3f\"   |    %.3f\"   |   %.3f\"    |   %d   |  %d    |   %2.0f      |\n", mem.carTab[i].numero, mem.carTab[i].best[3], mem.carTab[i].currentLap, mem.carTab[i].sections[0], mem.carTab[i].sections[1], mem.carTab[i].sections[2], mem.carTab[i].pit, mem.carTab[i].out, mem.carTab[i].tourNbr);
@@ -168,7 +168,7 @@ void tabDisplay(struct SharedMemory *carsTab, int pick){
   }
   else{ //----------------------AFFICHE LES QUALS/ESSAIS--------------
 	printf("|________________________________________________________________________________________________________|\n");
-  	printf("| Car  | Best Lap   |    Current Lap     |      S 1     |      S 2     |      S 3     |  Pit  |  Out  |\n");
+  	printf("| Car  | Best lap   |     Current lap      |      S 1     |      S 2     |      S 3     |  Pit  |  Out  |\n");
   	printf("|----------|-------------|------------------|--------------|--------------|--------------|-------|-------|\n");
     for(int i = 0; i < nbrCars; i++){
         printf("|   %2d     |  %.3f\"   |    %3.3f\"      |     %2.3f\"  |     %2.3f\"  |    %2.3f\"   |   %d   |   %d   |\n", mem.carTab[i].numero,mem.carTab[i].best[3], mem.carTab[i].currentLap, mem.carTab[i].sections[0],mem.carTab[i].sections[1], mem.carTab[i].sections[2], mem.carTab[i].pit, mem.carTab[i].out);
@@ -295,13 +295,13 @@ int main(int argc, char *argv[]){
   while(pick != 10){
     carsTab->nbrCarFinished = 0;
 
-  	printf("What do you want to do?"); 
+  	printf("What do you want to do?\n"); 
 	printf("To start free practice 1 (FP1) :0\n");
 	printf("To start free trials 2 (FP2) :1\n");
 	printf("To start free practice 3 (FP3) :2\n");
 	printf("To start qualifying 1 (Q1) :3\n");
 	printf("To start qualifying 2 (Q2) :4\n");
-	printf("To start qualifying 3 (Q3) :5\n");
+	printf("Pour lancer les qualifications 3 (Q3) :5\n");
 	printf("To start the final race :6\n");
 	printf("To exit the program :10\n");
     scanf("%d", &pick);
