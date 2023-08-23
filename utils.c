@@ -1,5 +1,14 @@
 #include "utils.h"
 
+#define  ESSAI1  0
+#define ESSAI2  1
+#define ESSAI3  2
+#define QUALIF1  3
+#define QUALIF2  4
+#define QUALIF3  5
+#define FINALE  6
+#define QUIT  10
+
 int nbrTourCalc(int circuitSize){
   int res = NB_KM / circuitSize;
   return res;
@@ -113,25 +122,25 @@ struct Car car_init(int i){
 void recapFile(struct SharedMemory *carsTab, int pick){
     FILE *file = NULL;
     switch (pick) {
-        case 0:
+        case ESSAI1:
             file = fopen("RecapEssai1.txt", "a");
             break;
-	      case 3:
+	      case ESSAI2:
             file = fopen("RecapEssai2.txt", "a");
             break;
-        case 1:
+        case ESSAI3:
             file = fopen("RecapEssai3.txt", "a");
             break;
-        case 20:
+        case QUALIF1:
             file = fopen("RecapQualifications1.txt", "a");
             break;
-        case 15:
+        case QUALIF2:
             file = fopen("RecapQualifications2.txt", "a");
             break;
-        case 10:
+        case QUALIF3:
             file = fopen("RecapQualifications3.txt", "a");
             break;
-        case 2:
+        case FINALE:
             file = fopen("RecapCourseFinal.txt", "a");
             break;
     }
@@ -139,7 +148,7 @@ void recapFile(struct SharedMemory *carsTab, int pick){
         struct SharedMemory mem = *carsTab;
         struct SharedMemory *memoryPoint = &mem;
         int final = 0;
-        if(pick == 2){
+        if(pick == FINALE){
           carSort(memoryPoint->vTab, 5);
           final = 1;
         }
@@ -149,42 +158,55 @@ void recapFile(struct SharedMemory *carsTab, int pick){
         system("clear");
         fprintf(file,"___________________________________\n");
         switch (pick) {
-            case 0:
+            case ESSAI1:
                 fprintf(file,"|             FREE PRACTICE 1            |\n");
                 break;
-	          case 3:
+	          case ESSAI2:
                 fprintf(file,"|             FREE PRACTICE 2           |\n");
                 break;
-            case 1:
+            case ESSAI3:
                 fprintf(file,"|             FREE PRACTICE 3           |\n");
                 break;
-            case 20:
+            case QUALIF1:
                 fprintf(file,"|         QUALIFICATIONS 1        |\n");
                 break;
-            case 15:
+            case QUALIF2:
                 fprintf(file,"|         QUALIFICATIONS 2        |\n");
                 break;
-            case 10:
+            case QUALIF3:
                 fprintf(file,"|         QUALIFICATIONS 3        |\n");
                 break;
-            case 2:
+            case FINALE:
                 fprintf(file,"|          RACE          |\n");
                 break;
         }
-        if (pick < 4) {
-            pick = 20;
-        }
+        int nbrCars = 0;
+        switch (pick)
+          {
+          case QUALIF1:
+            nbrCars = 20;
+            break;
+          case QUALIF2:
+            nbrCars = 15;
+            break;
+          case QUALIF3:
+            nbrCars = 10;
+            break;
+          default:
+            nbrCars = 20;
+            break;
+          }
         fprintf(file,"|_________________________________|\n");
         fprintf(file,"| Car |   Lap    | Pit | Out |\n");
         fprintf(file,"|---------|-----------|-----|-----|\n");
         if(final == 1){
-          for(int i = 0; i < pick; i++){
+          for(int i = 0; i < nbrCars; i++){
             fprintf(file,"|   %2d    |   %2.0f      |  %d  |  %d  |\n", mem.vTab[i].numero, (mem.vTab[i].tourNbr), mem.vTab[i].pit, mem.vTab[i].out);
             fprintf(file,"----------------------------------|\n");
           }
         }
         else{
-          for(int i = 0; i < pick; i++){
+          for(int i = 0; i < nbrCars; i++){
             fprintf(file,"|   %2d    |   %.3f\"  |  %d |  %d |\n", mem.vTab[i].numero, mem.vTab[i].best[3], mem.vTab[i].pit, mem.vTab[i].out);
             fprintf(file,"|---------------------------------|\n");
           }

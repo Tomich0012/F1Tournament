@@ -4,6 +4,14 @@
 
 sem_t semaphore;
 
+#define  ESSAI1  0
+#define ESSAI2  1
+#define ESSAI3  2
+#define QUALIF1  3
+#define QUALIF2  4
+#define QUALIF3  5
+#define FINALE  6
+#define QUIT  10
 
 // Process pour un lap
 //renvoie le temps du lap
@@ -91,7 +99,7 @@ void tabDisplay(struct SharedMemory *carsTab, int pick){
 
   //pas sur de ça
   int final = 0; //Booléen qui indique si c'est la final ou non
-  if(pick == 2){  //Si c'est la final
+  if(pick == FINALE){  //Si c'est la final
     carSort(memoryPoint->vTab, 5); //On trie le tableau des voitures
     final = 1; //On met le booléen final à 1
   }
@@ -102,44 +110,57 @@ void tabDisplay(struct SharedMemory *carsTab, int pick){
   }
   system("clear");
   switch (pick) {
-    case 0: 
+    case ESSAI1: 
     printf("__________________________________________________________________________________________________________\n");
     printf("|                                             ESSAIS 1                               		         |\n");
     break;
-    case 3:
+    case ESSAI2:
     printf("__________________________________________________________________________________________________________\n");
     printf("|                                             ESSAIS 2                               		         |\n");
     break;
-    case 1:
+    case ESSAI3:
     printf("__________________________________________________________________________________________________________\n");
     printf("|                                             ESSAIS 3                               		         |\n");
     break;
-    case 20:
+    case QUALIF1:
     printf("__________________________________________________________________________________________________________\n");
     printf("|                                             QUALIFICATIONS 1                 				 |\n");
     break;
-    case 15:
+    case QUALIF2:
     printf("__________________________________________________________________________________________________________\n");
     printf("|                                             QUALIFICATIONS 2                 				 |\n");
     break;
-    case 10:
+    case QUALIF3:
     printf("__________________________________________________________________________________________________________\n");
     printf("|                                             QUALIFICATIONS 3                 				 |\n");
     break;	
-    case 2:
+    case FINALE:
     printf("______________________________________________________________________________________________________________________\n");
     printf("|                                               COURSE FINALE                     			             |\n");
     break;
   }
-  if (pick < 4) {
-    pick = 20;
+  int nbrCars;
+  switch (pick)
+  {
+  case QUALIF1:
+    nbrCars = 20;
+    break;
+  case QUALIF2:
+    nbrCars = 15;
+    break;
+  case QUALIF3:
+    nbrCars = 10;
+    break;
+  default:
+    nbrCars = 20;
+    break;
   }
         
   if(final == 1){ //------------AFFICHE LA FINALE-------------------------
 	printf("|____________________________________________________________________________________________________________________|\n");
   	printf("| Car  | Best Tour   |  Tour Actuel     |   Section 1  |   Section 2  |   Section 3  |  Pit  |  Out  | Nb de lap|\n");
   	printf("|----------|-------------|------------------|--------------|--------------|--------------|-------|-------|-----------|\n");
-    for(int i = 0; i < pick; i++){
+    for(int i = 0; i < nbrCars; i++){
         printf("|   %2d     |  %.3f\"   |      %.3f\"    |    %.3f\"   |    %.3f\"   |   %.3f\"    |   %d   |  %d    |   %2.0f      |\n", mem.vTab[i].numero, mem.vTab[i].best[3], mem.vTab[i].currentLap, mem.vTab[i].sections[0], mem.vTab[i].sections[1], mem.vTab[i].sections[2], mem.vTab[i].pit, mem.vTab[i].out, mem.vTab[i].tourNbr);
         printf("|----------|-------------|------------------|--------------|--------------|--------------|-------|-------|-----------|\n");
     }
@@ -148,7 +169,7 @@ void tabDisplay(struct SharedMemory *carsTab, int pick){
 	printf("|________________________________________________________________________________________________________|\n");
   	printf("| Car  | Best Tour   |  Tour Actuel     |   Section 1  |   Section 2  |   Section 3  |  Pit  |  Out  |\n");
   	printf("|----------|-------------|------------------|--------------|--------------|--------------|-------|-------|\n");
-    for(int i = 0; i < pick; i++){
+    for(int i = 0; i < nbrCars; i++){
         printf("|   %2d     |  %.3f\"   |    %3.3f\"      |     %2.3f\"  |     %2.3f\"  |    %2.3f\"   |   %d   |   %d   |\n", mem.vTab[i].numero,mem.vTab[i].best[3], mem.vTab[i].currentLap, mem.vTab[i].sections[0],mem.vTab[i].sections[1], mem.vTab[i].sections[2], mem.vTab[i].pit, mem.vTab[i].out);
         printf("|----------|-------------|------------------|--------------|--------------|--------------|-------|-------|\n");
     }
@@ -176,7 +197,24 @@ void tabDisplay(struct SharedMemory *carsTab, int pick){
 
 void qualifSort(struct SharedMemory *carsTab, int pick){
   carSort(carsTab->vTab, 3); //tri de sorte que les voitures qui ont finies restent à leur place dans le tableau
-  switch (pick) {
+  int nbrCars;
+  switch (pick)
+  {
+  case QUALIF1:
+    nbrCars = 20;
+    break;
+  case QUALIF2:
+    nbrCars = 15;
+    break;
+  case QUALIF3:
+    nbrCars = 10;
+    break;
+  default:
+    nbrCars = 20;
+    break;
+  }
+  
+  switch (nbrCars) {
     case 20:
     for (int i = 15; i < 20; i++) {
       carsTab->finalRace[i] = carsTab->vTab[i]; 
@@ -204,18 +242,36 @@ void qualifSort(struct SharedMemory *carsTab, int pick){
 
 void daddyFunction(struct SharedMemory *carsTab, int pick){
   int nbrFinishedCalc;
-  if(pick > 4){
-    nbrFinishedCalc = pick;
-  }
-  else{
+  switch (pick)
+  {
+  case QUALIF1:
     nbrFinishedCalc = 20;
+    break;
+  case QUALIF2:
+    nbrFinishedCalc = 15;
+    break;
+  case QUALIF3:
+    nbrFinishedCalc = 10;
+    break;
+
+  default:
+    nbrFinishedCalc = 20;
+    break;
   }
   while(carsTab->nbrCarFinished <nbrFinishedCalc){
     msleep(500);
     tabDisplay(carsTab, pick);
   }
-  if (pick > 4) {
+  switch (pick)
+  {
+  case QUALIF1:
+  case QUALIF2:
+  case QUALIF3:
     qualifSort(carsTab, pick);
+    break;
+  
+  default:
+    break;
   }
   recapFile(carsTab, pick); //Pour avoir un document récapitulatif du tableau final
 }
@@ -239,19 +295,19 @@ int main(int argc, char *argv[]){
   while(pick != 10){
     carsTab->nbrCarFinished = 0;
 
-   	printf("Que voulez-vous faire? \n");
-	printf("0 : pour lancer les essais 1 (P1)  \n");
-	printf("6 : pour lancer les essais 2 (P2)  \n");
-	printf("1 : pour lancer les essais 3 (P3)  \n");
-	printf("2 : pour lancer les qualifs 1 (Q1) \n");
-	printf("3 : pour lancer les qualifs 2 (Q2) \n");
-	printf("4 : pour lancer les qualifs 3 (Q3) \n");
-	printf("5 : pour lancer la course final   \n");
-	printf("10 : pour quitter le programme \n");
+  	printf("Que voulez-vous faire? \n");
+	printf("Pour lancer les essais libres 1  (P1)  :0\n");
+	printf("Pour lancer les essais libres 2  (P2)  :1\n");
+	printf("Pour lancer les essais libres 3  (P3)  :2\n");
+	printf("Pour lancer les qualifications 1 (Q1)  :3\n");
+	printf("Pour lancer les qualifications 2 (Q2)  :4\n");
+	printf("Pour lancer les qualifications 3 (Q3)  :5\n");
+	printf("Pour lancer la course finale           :6\n");
+	printf("Pour quitter le programme              :10\n");
     scanf("%d", &pick);
 
     switch(pick){
-      case 0 : // P1 -> 1h30
+      case ESSAI1 : // P1 -> 1h30
       for(int i = 0; i < 20; i++){
         int pid = fork();
         if (pid < 0) {
@@ -263,9 +319,9 @@ int main(int argc, char *argv[]){
           fpAndQualif(carsTab, i, 5400);
         }
       }
-      daddyFunction(carsTab, 0); // C'est le père qui affiche (loïc : j'ai mis 0 explique moi si c'est pas ça mdr)
+      daddyFunction(carsTab, pick); // C'est le père qui affiche (loïc : j'ai mis 0 explique moi si c'est pas ça mdr)
       break;
-      case 6 : // P2 -> 1h30
+      case ESSAI2 : // P2 -> 1h30
       for(int i = 0; i < 20; i++){
         int pid = fork();
         if (pid < 0) {
@@ -277,9 +333,9 @@ int main(int argc, char *argv[]){
           fpAndQualif(carsTab, i, 5400);
         }
       }
-      daddyFunction(carsTab, 3); 
+      daddyFunction(carsTab, pick); 
       break;
-      case 1 : //P3 -> 1h
+      case ESSAI3 : //P3 -> 1h
       for(int i = 0; i < 20; i++){
         int pid = fork();
         if (pid < 0) {
@@ -291,9 +347,9 @@ int main(int argc, char *argv[]){
           fpAndQualif(carsTab, i, 3600);
         }
       }
-      daddyFunction(carsTab, 1);
+      daddyFunction(carsTab, pick);
       break;
-      case 2 :
+      case QUALIF1 :
       for(int i = 0; i < 20; i++){
         int pid = fork();
         if (pid < 0) {
@@ -305,9 +361,9 @@ int main(int argc, char *argv[]){
           fpAndQualif(carsTab, i, 1080);
         }
       }
-      daddyFunction(carsTab, 20);
+      daddyFunction(carsTab, pick);
       break;
-      case 3 :
+      case QUALIF2 :
       for(int i = 0; i < 15; i++){
         int pid = fork();
         if (pid < 0) {
@@ -319,9 +375,9 @@ int main(int argc, char *argv[]){
           fpAndQualif(carsTab, i, 900);
         }
       }
-      daddyFunction(carsTab, 15);
+      daddyFunction(carsTab, pick);
       break;
-      case 4 :
+      case QUALIF3 :
       for(int i = 0; i < 10; i++){
         int pid = fork();
         if (pid < 0) {
@@ -333,9 +389,9 @@ int main(int argc, char *argv[]){
           fpAndQualif(carsTab, i, 720);
         }
       }
-      daddyFunction(carsTab, 10);
+      daddyFunction(carsTab, pick);
       break;
-      case 5 :
+      case FINALE :
       for(int i = 0; i < 20; i++){
         int pid = fork();
         if (pid < 0) {
@@ -347,10 +403,12 @@ int main(int argc, char *argv[]){
           finalRace(carsTab, i);
         }
       }
-      daddyFunction(carsTab, 2);
+      daddyFunction(carsTab, pick);
       break;
     }
   }
   sem_destroy(&semaphore);
   return 0;
 }
+
+
