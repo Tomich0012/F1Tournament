@@ -152,7 +152,7 @@ void recapFile(struct SharedMemory *carsTab, int pick){
             case 0:
                 fprintf(file,"|             FREE PRACTICE 1            |\n");
                 break;
-	    case 3:
+	          case 3:
                 fprintf(file,"|             FREE PRACTICE 2           |\n");
                 break;
             case 1:
