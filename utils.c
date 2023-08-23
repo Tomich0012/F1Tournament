@@ -35,7 +35,7 @@ void carSort(struct Car *cars, int pick){
   for (int i = 0; i < 19; i++){
     for (int j = 0; j < 19 - i; j++){
       if(pick == 5){
-        if (cars[j].nbrTour < cars[j+1].nbrTour){
+        if (cars[j].tourNbr < cars[j+1].tourNbr){
           swap(&cars[j], &cars[j+1]);
         }
       }
@@ -179,7 +179,7 @@ void recapFile(struct SharedMemory *carsTab, int pick){
         fprintf(file,"|---------|-----------|-----|-----|\n");
         if(final == 1){
           for(int i = 0; i < pick; i++){
-            fprintf(file,"|   %2d    |   %2.0f      |  %d  |  %d  |\n", mem.vTab[i].numero, (mem.vTab[i].nbrTour), mem.vTab[i].pit, mem.vTab[i].out);
+            fprintf(file,"|   %2d    |   %2.0f      |  %d  |  %d  |\n", mem.vTab[i].numero, (mem.vTab[i].tourNbr), mem.vTab[i].pit, mem.vTab[i].out);
             fprintf(file,"----------------------------------|\n");
           }
         }
