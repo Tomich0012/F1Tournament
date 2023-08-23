@@ -168,16 +168,16 @@ void recapFile(struct SharedMemory *carsTab, int pick){
                 fprintf(file,"|             FREE PRACTICE 3           |\n");
                 break;
             case QUALIF1:
-                fprintf(file,"|         QUALIFICATIONS 1        |\n");
+                fprintf(file,"|         Q 1        |\n");
                 break;
             case QUALIF2:
-                fprintf(file,"|         QUALIFICATIONS 2        |\n");
+                fprintf(file,"|         Q 2        |\n");
                 break;
             case QUALIF3:
-                fprintf(file,"|         QUALIFICATIONS 3        |\n");
+                fprintf(file,"|         Q 3        |\n");
                 break;
             case FINALE:
-                fprintf(file,"|          RACE          |\n");
+                fprintf(file,"|          FINAL RACE          |\n");
                 break;
         }
         int nbrCars = 0;

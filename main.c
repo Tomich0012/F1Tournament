@@ -159,7 +159,7 @@ void tabDisplay(struct SharedMemory *carsTab, int pick){
         
   if(final == 1){ //------------AFFICHE LA FINALE-------------------------
 	printf("|____________________________________________________________________________________________________________________|\n");
-  	printf("| Car  | Best Tour   |  Tour Actuel     |   S 1  |   S 2  |   S 3  |  Pit  |  Out  | Nb de lap|\n");
+  	printf("| Car  | Best Tour   |      Tour Actuel     |       S 1    |      S 2     |     S 3      |  Pit  |  Out  | Nb de lap|\n");
   	printf("|----------|-------------|------------------|--------------|--------------|--------------|-------|-------|-----------|\n");
     for(int i = 0; i < nbrCars; i++){
         printf("|   %2d     |  %.3f\"   |      %.3f\"    |    %.3f\"   |    %.3f\"   |   %.3f\"    |   %d   |  %d    |   %2.0f      |\n", mem.carTab[i].numero, mem.carTab[i].best[3], mem.carTab[i].currentLap, mem.carTab[i].sections[0], mem.carTab[i].sections[1], mem.carTab[i].sections[2], mem.carTab[i].pit, mem.carTab[i].out, mem.carTab[i].tourNbr);
@@ -168,7 +168,7 @@ void tabDisplay(struct SharedMemory *carsTab, int pick){
   }
   else{ //----------------------AFFICHE LES QUALS/ESSAIS--------------
 	printf("|________________________________________________________________________________________________________|\n");
-  	printf("| Car  | Best Tour   |  Tour Actuel     |   S 1  |   S 2  |   S 3  |  Pit  |  Out  |\n");
+  	printf("| Car  | Best Tour   |     Tour Actuel      |      S 1     |      S 2     |      S 3     |  Pit  |  Out  |\n");
   	printf("|----------|-------------|------------------|--------------|--------------|--------------|-------|-------|\n");
     for(int i = 0; i < nbrCars; i++){
         printf("|   %2d     |  %.3f\"   |    %3.3f\"      |     %2.3f\"  |     %2.3f\"  |    %2.3f\"   |   %d   |   %d   |\n", mem.carTab[i].numero,mem.carTab[i].best[3], mem.carTab[i].currentLap, mem.carTab[i].sections[0],mem.carTab[i].sections[1], mem.carTab[i].sections[2], mem.carTab[i].pit, mem.carTab[i].out);
