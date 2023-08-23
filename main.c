@@ -70,7 +70,9 @@ void fpAndQualif(struct SharedMemory *carsTab, int i, double totalTime){ //i = n
   //Boucle course
   while (ongoingTime < totalTime && v.out == 0) { //totalTime
     ongoingTime += lapCalc(vPoint); //On calcule le temps du lap
-    carsTab->vTab[i] = v; //On met à jour la voiture dans le tableau
+    sem_wait(&semaphore);
+    carsTab->vTab[i] = v;
+    sem_post(&semaphore); // Libération du sémaphore
     if (totalTime == 5400 || totalTime == 3600) { // si c'est un essaie
 	sleep(1.5);
     }
