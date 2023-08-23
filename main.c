@@ -401,7 +401,7 @@ int main(int argc, char *argv[]){
           finalRace(carsTab, i);
         }
       }
-      daddyFunction(carsTab, 2);
+      daddyFunction(carsTab, pick);
       break;
     }
   }
