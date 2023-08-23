@@ -26,7 +26,7 @@ struct Car{
 
 //Structure de la mémoire partagée.
 struct SharedMemory{
-  struct Car vTab[20]; //Tableau de voitures de 20 voitures 
+  struct Car carTab[20]; //Tableau de voitures de 20 voitures 
   struct Car finalRace[20]; //Tableau de voitures pour la course finale
   int nbrCarFinished; //Nombre de voitures qui ont fini la course
   int lapNbrToDo; //Nombre de tour à faire

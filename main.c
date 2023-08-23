@@ -43,7 +43,7 @@ double lapCalc(struct Car *v){
 }
 
 void finalRace(struct SharedMemory *carsTab, int i){ //i = numéro de la voiture
-  struct Car v = carsTab->vTab[i]; //On récupère la voiture
+  struct Car v = carsTab->carTab[i]; //On récupère la voiture
   struct Car *vPoint = &v; //On crée un pointeur sur la voiture
   carVarInit(vPoint); //On initialise les variables de la voiture
 
@@ -55,7 +55,7 @@ void finalRace(struct SharedMemory *carsTab, int i){ //i = numéro de la voiture
   while (v.tourNbr < carsTab->lapNbrToDo && v.out == 0) { //carsTab->lapNbrToDo 
     lapCalc(vPoint);
     sem_wait(&semaphore);
-    carsTab->vTab[i] = v;
+    carsTab->carTab[i] = v;
     sem_post(&semaphore); // Libération du sémaphore
     msleep(1000);
   }
@@ -70,7 +70,7 @@ void fpAndQualif(struct SharedMemory *carsTab, int i, double totalTime){ //i = n
     v = car_init(i); //On initialise la voiture
   }
   else{ 
-    v = carsTab->vTab[i]; //On récupère la voiture
+    v = carsTab->carTab[i]; //On récupère la voiture
     carVarInit(vPoint); //On initialise les variables de la voiture
 
   }
@@ -79,7 +79,7 @@ void fpAndQualif(struct SharedMemory *carsTab, int i, double totalTime){ //i = n
   while (ongoingTime < totalTime && v.out == 0) { //totalTime
     ongoingTime += lapCalc(vPoint); //On calcule le temps du lap
     sem_wait(&semaphore);
-    carsTab->vTab[i] = v;
+    carsTab->carTab[i] = v;
     sem_post(&semaphore); // Libération du sémaphore
     if (totalTime == 5400 || totalTime == 3600) { // si c'est un essaie
 	sleep(1.5);
@@ -101,12 +101,13 @@ void tabDisplay(struct SharedMemory *carsTab, int pick){
   int final = 0; //Booléen qui indique si c'est la final ou non
   if(pick == FINALE){  //Si c'est la final
     carSort(memoryPoint->vTab, 5); //On trie le tableau des voitures
+
     final = 1; //On met le booléen final à 1
   }
 
 
   else{ 
-    carSort(memoryPoint->vTab, 3); //On trie le tableau des voitures
+    carSort(memoryPoint->carTab, 3); //On trie le tableau des voitures
   }
   system("clear");
   switch (pick) {
@@ -180,18 +181,18 @@ void tabDisplay(struct SharedMemory *carsTab, int pick){
 
   printf("|  Best    | Section 1    |\n");
   printf("|----------|--------------|\n");
-  carSort(memoryPoint->vTab, 0);
-  printf("|   %2d     |  %.3f\"     |\n", mem.vTab[0].numero, mem.vTab[0].best[0]);
+  carSort(memoryPoint->carTab, 0);
+  printf("|   %2d     |  %.3f\"     |\n", mem.carTab[0].numero, mem.carTab[0].best[0]);
   printf("|----------|--------------|\n");
   printf("|  Best    | Section 2    |\n");
   printf("|----------|--------------|\n");
-  carSort(memoryPoint->vTab, 1);
-  printf("|   %2d     |  %.3f\"     |\n", mem.vTab[0].numero, mem.vTab[0].best[1]);
+  carSort(memoryPoint->carTab, 1);
+  printf("|   %2d     |  %.3f\"     |\n", mem.carTab[0].numero, mem.carTab[0].best[1]);
   printf("|----------|--------------|\n");
   printf("|  Best    | Section 3    |\n");
   printf("|----------|--------------|\n");
-  carSort(memoryPoint->vTab, 2);
-  printf("|   %2d     |  %.3f\"     |\n", mem.vTab[0].numero, mem.vTab[0].best[2]);
+  carSort(memoryPoint->carTab, 2);
+  printf("|   %2d     |  %.3f\"     |\n", mem.carTab[0].numero, mem.carTab[0].best[2]);
   printf("|----------|--------------|\n");
 }
 
@@ -213,27 +214,26 @@ void qualifSort(struct SharedMemory *carsTab, int pick){
     nbrCars = 20;
     break;
   }
-  
   switch (nbrCars) {
     case 20:
     for (int i = 15; i < 20; i++) {
-      carsTab->finalRace[i] = carsTab->vTab[i]; 
-      carVarInit(&carsTab->vTab[i]); 
-      carsTab->vTab[i].best[3] = i + 1000;
+      carsTab->finalRace[i] = carsTab->carTab[i]; 
+      carVarInit(&carsTab->carTab[i]); 
+      carsTab->carTab[i].best[3] = i + 1000;
     }
     break;
     case 15: 
     for (int i = 10; i < 15; i++) {
-      carsTab->finalRace[i] = carsTab->vTab[i];
-      carVarInit(&carsTab->vTab[i]);
-      carsTab->vTab[i].best[3] = i + 1000;
+      carsTab->finalRace[i] = carsTab->carTab[i];
+      carVarInit(&carsTab->carTab[i]);
+      carsTab->carTab[i].best[3] = i + 1000;
     }
     break;
     case 10:
     for (int i = 0; i < 10; i++) {
-      carsTab->finalRace[i] = carsTab->vTab[i];
-      carVarInit(&carsTab->vTab[i]);
-      carsTab->vTab[i].best[3] = i + 1000;
+      carsTab->finalRace[i] = carsTab->carTab[i];
+      carVarInit(&carsTab->carTab[i]);
+      carsTab->carTab[i].best[3] = i + 1000;
     }
     break;
   }

@@ -153,7 +153,7 @@ void recapFile(struct SharedMemory *carsTab, int pick){
           final = 1;
         }
         else{
-          carSort(memoryPoint->vTab, 3);
+          carSort(memoryPoint->carTab, 3);
         }
         system("clear");
         fprintf(file,"___________________________________\n");
@@ -213,18 +213,18 @@ void recapFile(struct SharedMemory *carsTab, int pick){
         }
         fprintf(file,"|  Best   | Section 1 |\n");
         fprintf(file,"|---------|-----------|\n");
-        carSort(memoryPoint->vTab, 0);
-        fprintf(file,"|   %2d    |   %.3f\" |\n", mem.vTab[0].numero, mem.vTab[0].best[0]);
+        carSort(memoryPoint->carTab, 0);
+        fprintf(file,"|   %2d    |   %.3f\" |\n", mem.carTab[0].numero, mem.carTab[0].best[0]);
         fprintf(file,"|---------|-----------|\n");
         fprintf(file,"|  Best   | Section 2 |\n");
         fprintf(file,"|---------|-----------|\n");
-        carSort(memoryPoint->vTab, 1);
-        fprintf(file,"|   %2d    |   %.3f\" |\n", mem.vTab[0].numero, mem.vTab[0].best[1]);
+        carSort(memoryPoint->carTab, 1);
+        fprintf(file,"|   %2d    |   %.3f\" |\n", mem.carTab[0].numero, mem.carTab[0].best[1]);
         fprintf(file,"|---------|-----------|\n");
         fprintf(file,"|  Best   | Section 3 |\n");
         fprintf(file,"|---------|-----------|\n");
-        carSort(memoryPoint->vTab, 2);
-        fprintf(file,"|   %2d    |   %.3f\" |\n", mem.vTab[0].numero, mem.vTab[0].best[2]);
+        carSort(memoryPoint->carTab, 2);
+        fprintf(file,"|   %2d    |   %.3f\" |\n", mem.carTab[0].numero, mem.carTab[0].best[2]);
         fprintf(file,"|---------------------|\n");
         fclose(file);
     }
