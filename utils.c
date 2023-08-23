@@ -140,11 +140,11 @@ void recapFile(struct SharedMemory *carsTab, int pick){
         struct SharedMemory *memoryPoint = &mem;
         int final = 0;
         if(pick == 2){
-          carSort(memoryPoint->vTab, 5);
+          carSort(memoryPoint->carTab, 5);
           final = 1;
         }
         else{
-          carSort(memoryPoint->vTab, 3);
+          carSort(memoryPoint->carTab, 3);
         }
         system("clear");
         fprintf(file,"___________________________________\n");
@@ -179,30 +179,30 @@ void recapFile(struct SharedMemory *carsTab, int pick){
         fprintf(file,"|---------|-----------|-----|-----|\n");
         if(final == 1){
           for(int i = 0; i < pick; i++){
-            fprintf(file,"|   %2d    |   %2.0f      |  %d  |  %d  |\n", mem.vTab[i].numero, (mem.vTab[i].tourNbr), mem.vTab[i].pit, mem.vTab[i].out);
+            fprintf(file,"|   %2d    |   %2.0f      |  %d  |  %d  |\n", mem.carTab[i].numero, (mem.carTab[i].tourNbr), mem.carTab[i].pit, mem.carTab[i].out);
             fprintf(file,"----------------------------------|\n");
           }
         }
         else{
           for(int i = 0; i < pick; i++){
-            fprintf(file,"|   %2d    |   %.3f\"  |  %d |  %d |\n", mem.vTab[i].numero, mem.vTab[i].best[3], mem.vTab[i].pit, mem.vTab[i].out);
+            fprintf(file,"|   %2d    |   %.3f\"  |  %d |  %d |\n", mem.carTab[i].numero, mem.carTab[i].best[3], mem.carTab[i].pit, mem.carTab[i].out);
             fprintf(file,"|---------------------------------|\n");
           }
         }
         fprintf(file,"|  Best   | Section 1 |\n");
         fprintf(file,"|---------|-----------|\n");
-        carSort(memoryPoint->vTab, 0);
-        fprintf(file,"|   %2d    |   %.3f\" |\n", mem.vTab[0].numero, mem.vTab[0].best[0]);
+        carSort(memoryPoint->carTab, 0);
+        fprintf(file,"|   %2d    |   %.3f\" |\n", mem.carTab[0].numero, mem.carTab[0].best[0]);
         fprintf(file,"|---------|-----------|\n");
         fprintf(file,"|  Best   | Section 2 |\n");
         fprintf(file,"|---------|-----------|\n");
-        carSort(memoryPoint->vTab, 1);
-        fprintf(file,"|   %2d    |   %.3f\" |\n", mem.vTab[0].numero, mem.vTab[0].best[1]);
+        carSort(memoryPoint->carTab, 1);
+        fprintf(file,"|   %2d    |   %.3f\" |\n", mem.carTab[0].numero, mem.carTab[0].best[1]);
         fprintf(file,"|---------|-----------|\n");
         fprintf(file,"|  Best   | Section 3 |\n");
         fprintf(file,"|---------|-----------|\n");
-        carSort(memoryPoint->vTab, 2);
-        fprintf(file,"|   %2d    |   %.3f\" |\n", mem.vTab[0].numero, mem.vTab[0].best[2]);
+        carSort(memoryPoint->carTab, 2);
+        fprintf(file,"|   %2d    |   %.3f\" |\n", mem.carTab[0].numero, mem.carTab[0].best[2]);
         fprintf(file,"|---------------------|\n");
         fclose(file);
     }
