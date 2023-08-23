@@ -37,16 +37,16 @@ struct SharedMemory{
 double lapCalc(struct Car *v);
 
 //Fonction qui gère la course Finale
-void finalRace(struct MemoirePartagee *tabVoitures, int i);
+void finalRace(struct SharedMemory *carsTab, int i);
 
 //Fonction qui gère les essais et les qualifications
-void fpAndQualif(struct MemoirePartagee *tabVoitures, int i, double tempsTotal);
+void fpAndQualif(struct SharedMemory *carsTab, int i, double totalTime);
 
 //Fonction qui permet d'afficher ce qu'il se passe
-void tabDisplay(struct MemoirePartagee *tabVoitures, int choix);
+void tabDisplay(struct SharedMemory *carsTab, int pick);
 
 //Fonction qui permet de trier le tableau des voitures après chaque qualification
-void qualifSort(struct MemoirePartagee *tabVoitures, int choix);
+void qualifSort(struct SharedMemory *carsTab, int pick);
 
 //Fonction qui gère l'affichage, les tris et la création des fichiers
-void daddyFunction(struct MemoirePartagee *tabVoitures, int choix);
+void daddyFunction(struct SharedMemory *carsTab, int pick);
