@@ -116,7 +116,7 @@ void recapFile(struct SharedMemory *carsTab, int pick){
         case 0:
             file = fopen("RecapEssai1.txt", "a");
             break;
-	case 3:
+	      case 3:
             file = fopen("RecapEssai2.txt", "a");
             break;
         case 1:
