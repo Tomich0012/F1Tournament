@@ -262,6 +262,7 @@ int main(int argc, char *argv[]){
         }
       }
       daddyFunction(carsTab, 0); // C'est le père qui affiche (loïc : j'ai mis 0 explique moi si c'est pas ça mdr)
+      break;
       case 6 : // P2 -> 1h30
       for(int i = 0; i < 20; i++){
         int pid = fork();
