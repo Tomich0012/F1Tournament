@@ -2,6 +2,8 @@
 #include "utils.c"
 #include <semaphore.h>
 
+sem_t semaphore;
+
 
 // Process pour un lap
 //renvoie le temps du lap
@@ -44,9 +46,9 @@ void finalRace(struct SharedMemory *carsTab, int i){ //i = numéro de la voiture
   
   while (v.tourNbr < carsTab->lapNbrToDo && v.out == 0) { //carsTab->lapNbrToDo 
     lapCalc(vPoint);
-    sem_wait(&SharedMemory.semaphore); // On attend que le sémaphore soit libre
+    sem_wait(&semaphore);
     carsTab->vTab[i] = v;
-    sem_post(&SharedMemory.semaphore); // Libération du sémaphore
+    sem_post(&semaphore); // Libération du sémaphore
     msleep(1000);
   }
   carsTab->nbrCarFinished += 1; //On incrémente le nombre de voitures qui ont fini la course
@@ -68,9 +70,7 @@ void fpAndQualif(struct SharedMemory *carsTab, int i, double totalTime){ //i = n
   //Boucle course
   while (ongoingTime < totalTime && v.out == 0) { //totalTime
     ongoingTime += lapCalc(vPoint); //On calcule le temps du lap
-    sem_wait(&SharedMemory.semaphore); // On attend que le sémaphore soit libre
-    carsTab->vTab[i] = v;
-    sem_post(&SharedMemory.semaphore); // Libération du sémaphore
+    carsTab->vTab[i] = v; //On met à jour la voiture dans le tableau
     if (totalTime == 5400 || totalTime == 3600) { // si c'est un essaie
 	sleep(1.5);
     }
