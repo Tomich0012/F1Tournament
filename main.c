@@ -231,7 +231,7 @@ int main(int argc, char *argv[]){
   int circuitSize;
   scanf("%d", &circuitSize);
 
-  carsTab->lapNbrToDo = nbrTourSize(circuitSize);
+  carsTab->lapNbrToDo = nbrTourCalc(circuitSize);
 	//printf("test: %d", carsTab->lapNbrToDo); //Nombre de lap à faire
 
   while(pick != 10){

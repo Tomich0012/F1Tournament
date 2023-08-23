@@ -1,7 +1,7 @@
 const int NB_KM = 310;
 
 //Calcule le nombre de tour d'une course
-int nbrTourSize(int circuitSize);
+int nbrTourCalc(int circuitSize);
 
 //Fonction qui permet de faire un sleep en millisecondes
 int msleep(long tms);

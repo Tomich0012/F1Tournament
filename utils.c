@@ -1,6 +1,6 @@
 #include "utils.h"
 
-int nbrTourSize(int circuitSize){
+int nbrTourCalc(int circuitSize){
   int res = NB_KM / circuitSize;
   return res;
 }
