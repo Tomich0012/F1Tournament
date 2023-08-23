@@ -100,7 +100,7 @@ void tabDisplay(struct SharedMemory *carsTab, int pick){
   //pas sur de ça
   int final = 0; //Booléen qui indique si c'est la final ou non
   if(pick == FINALE){  //Si c'est la final
-    carSort(memoryPoint->vTab, 5); //On trie le tableau des voitures
+    carSort(memoryPoint->carTab, 5); //On trie le tableau des voitures
 
     final = 1; //On met le booléen final à 1
   }
@@ -162,7 +162,7 @@ void tabDisplay(struct SharedMemory *carsTab, int pick){
   	printf("| Car  | Best Tour   |  Tour Actuel     |   Section 1  |   Section 2  |   Section 3  |  Pit  |  Out  | Nb de lap|\n");
   	printf("|----------|-------------|------------------|--------------|--------------|--------------|-------|-------|-----------|\n");
     for(int i = 0; i < nbrCars; i++){
-        printf("|   %2d     |  %.3f\"   |      %.3f\"    |    %.3f\"   |    %.3f\"   |   %.3f\"    |   %d   |  %d    |   %2.0f      |\n", mem.vTab[i].numero, mem.vTab[i].best[3], mem.vTab[i].currentLap, mem.vTab[i].sections[0], mem.vTab[i].sections[1], mem.vTab[i].sections[2], mem.vTab[i].pit, mem.vTab[i].out, mem.vTab[i].tourNbr);
+        printf("|   %2d     |  %.3f\"   |      %.3f\"    |    %.3f\"   |    %.3f\"   |   %.3f\"    |   %d   |  %d    |   %2.0f      |\n", mem.carTab[i].numero, mem.carTab[i].best[3], mem.carTab[i].currentLap, mem.carTab[i].sections[0], mem.carTab[i].sections[1], mem.carTab[i].sections[2], mem.carTab[i].pit, mem.carTab[i].out, mem.carTab[i].tourNbr);
         printf("|----------|-------------|------------------|--------------|--------------|--------------|-------|-------|-----------|\n");
     }
   }
@@ -171,7 +171,7 @@ void tabDisplay(struct SharedMemory *carsTab, int pick){
   	printf("| Car  | Best Tour   |  Tour Actuel     |   Section 1  |   Section 2  |   Section 3  |  Pit  |  Out  |\n");
   	printf("|----------|-------------|------------------|--------------|--------------|--------------|-------|-------|\n");
     for(int i = 0; i < nbrCars; i++){
-        printf("|   %2d     |  %.3f\"   |    %3.3f\"      |     %2.3f\"  |     %2.3f\"  |    %2.3f\"   |   %d   |   %d   |\n", mem.vTab[i].numero,mem.vTab[i].best[3], mem.vTab[i].currentLap, mem.vTab[i].sections[0],mem.vTab[i].sections[1], mem.vTab[i].sections[2], mem.vTab[i].pit, mem.vTab[i].out);
+        printf("|   %2d     |  %.3f\"   |    %3.3f\"      |     %2.3f\"  |     %2.3f\"  |    %2.3f\"   |   %d   |   %d   |\n", mem.carTab[i].numero,mem.carTab[i].best[3], mem.carTab[i].currentLap, mem.carTab[i].sections[0],mem.carTab[i].sections[1], mem.carTab[i].sections[2], mem.carTab[i].pit, mem.carTab[i].out);
         printf("|----------|-------------|------------------|--------------|--------------|--------------|-------|-------|\n");
     }
   }
@@ -197,7 +197,7 @@ void tabDisplay(struct SharedMemory *carsTab, int pick){
 }
 
 void qualifSort(struct SharedMemory *carsTab, int pick){
-  carSort(carsTab->vTab, 3); //tri de sorte que les voitures qui ont finies restent à leur place dans le tableau
+  carSort(carsTab->carTab, 3); //tri de sorte que les voitures qui ont finies restent à leur place dans le tableau
   int nbrCars;
   switch (pick)
   {

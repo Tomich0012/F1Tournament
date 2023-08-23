@@ -149,7 +149,7 @@ void recapFile(struct SharedMemory *carsTab, int pick){
         struct SharedMemory *memoryPoint = &mem;
         int final = 0;
         if(pick == FINALE){
-          carSort(memoryPoint->vTab, 5);
+          carSort(memoryPoint->carTab, 5);
           final = 1;
         }
         else{
@@ -201,13 +201,13 @@ void recapFile(struct SharedMemory *carsTab, int pick){
         fprintf(file,"|---------|-----------|-----|-----|\n");
         if(final == 1){
           for(int i = 0; i < nbrCars; i++){
-            fprintf(file,"|   %2d    |   %2.0f      |  %d  |  %d  |\n", mem.vTab[i].numero, (mem.vTab[i].tourNbr), mem.vTab[i].pit, mem.vTab[i].out);
+            fprintf(file,"|   %2d    |   %2.0f      |  %d  |  %d  |\n", mem.carTab[i].numero, (mem.carTab[i].tourNbr), mem.carTab[i].pit, mem.carTab[i].out);
             fprintf(file,"----------------------------------|\n");
           }
         }
         else{
           for(int i = 0; i < nbrCars; i++){
-            fprintf(file,"|   %2d    |   %.3f\"  |  %d |  %d |\n", mem.vTab[i].numero, mem.vTab[i].best[3], mem.vTab[i].pit, mem.vTab[i].out);
+            fprintf(file,"|   %2d    |   %.3f\"  |  %d |  %d |\n", mem.carTab[i].numero, mem.carTab[i].best[3], mem.carTab[i].pit, mem.carTab[i].out);
             fprintf(file,"|---------------------------------|\n");
           }
         }
