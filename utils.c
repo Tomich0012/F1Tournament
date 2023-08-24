@@ -10,7 +10,7 @@
 #define QUIT  10
 
 int nbrTourCalc(int circuitSize){
-  int res = NB_KM / circuitSize;
+  int res = kmAmount / circuitSize;
   return res;
 }
 

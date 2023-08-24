@@ -1,4 +1,4 @@
-const int NB_KM = 335;
+const int kmAmount = 335;
 
 //Calcule le nombre de tour d'une course
 int nbrTourCalc(int circuitSize);
