@@ -307,7 +307,7 @@ int main(int argc, char *argv[]){
     scanf("%d", &pick);
 
     switch(pick){
-      case ESSAI1 : // P1 -> 1h30
+      case ESSAI1 : // P1 -> 1h00
       for(int i = 0; i < 20; i++){
         int pid = fork();
         if (pid < 0) {
@@ -316,12 +316,12 @@ int main(int argc, char *argv[]){
         }
         else if (pid == 0) {
           srand(getpid());
-          fpAndQualif(carsTab, i, 5400);
+          fpAndQualif(carsTab, i, 3600);
         }
       }
       daddyFunction(carsTab, pick); // C'est le père qui affiche (loïc : j'ai mis ESSAI2 explique moi si c'est pas ça mdr)
       break;
-      case ESSAI2 : // P2 -> 1h30
+      case ESSAI2 : // P2 -> 1h00
       for(int i = 0; i < 20; i++){
         int pid = fork();
         if (pid < 0) {
@@ -330,7 +330,7 @@ int main(int argc, char *argv[]){
         }
         else if (pid == 0) {
           srand(getpid());
-          fpAndQualif(carsTab, i, 5400);
+          fpAndQualif(carsTab, i, 3600);
         }
       }
       daddyFunction(carsTab, pick); 
