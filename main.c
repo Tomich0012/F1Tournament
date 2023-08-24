@@ -296,14 +296,14 @@ int main(int argc, char *argv[]){
     carsTab->nbrCarFinished = 0;
 
   	printf("What do you want to do?\n"); 
-	printf("To start free practice 1 (FP1) :0\n");
-	printf("To start free trials 2 (FP2) :1\n");
-	printf("To start free practice 3 (FP3) :2\n");
-	printf("To start qualifying 1 (Q1) :3\n");
-	printf("To start qualifying 2 (Q2) :4\n");
+	printf("To start free practice 1 (FP1)        :0\n");
+	printf("To start free trials 2 (FP2)          :1\n");
+	printf("To start free practice 3 (FP3)        :2\n");
+	printf("To start qualifying 1 (Q1)            :3\n");
+	printf("To start qualifying 2 (Q2)            :4\n");
 	printf("Pour lancer les qualifications 3 (Q3) :5\n");
-	printf("To start the final race :6\n");
-	printf("To exit the program :10\n");
+	printf("To start the final race               :6\n");
+	printf("To exit the program                   :10\n");
     scanf("%d", &pick);
 
     switch(pick){
