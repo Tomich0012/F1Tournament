@@ -123,25 +123,25 @@ void recapFile(struct SharedMemory *carsTab, int pick){
     FILE *file = NULL;
     switch (pick) {
         case ESSAI1:
-            file = fopen("RecapEssai1.txt", "a");
+            file = fopen("RecapEssai1.txt", "w");
             break;
 	      case ESSAI2:
-            file = fopen("RecapEssai2.txt", "a");
+            file = fopen("RecapEssai2.txt", "w");
             break;
         case ESSAI3:
-            file = fopen("RecapEssai3.txt", "a");
+            file = fopen("RecapEssai3.txt", "w");
             break;
         case QUALIF1:
-            file = fopen("RecapQualifications1.txt", "a");
+            file = fopen("RecapQualifications1.txt", "w");
             break;
         case QUALIF2:
-            file = fopen("RecapQualifications2.txt", "a");
+            file = fopen("RecapQualifications2.txt", "w");
             break;
         case QUALIF3:
-            file = fopen("RecapQualifications3.txt", "a");
+            file = fopen("RecapQualifications3.txt", "w");
             break;
         case FINALE:
-            file = fopen("RecapCourseFinal.txt", "a");
+            file = fopen("RecapCourseFinal.txt", "w");
             break;
     }
     if(file != NULL){
