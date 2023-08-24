@@ -159,7 +159,7 @@ void tabDisplay(struct SharedMemory *carsTab, int pick){
         
   if(final == 1){ //------------AFFICHE LA FINALE-------------------------
 	printf("|____________________________________________________________________________________________________________________|\n");
-  	printf("| Car  | Best Tour   |      Tour Actuel     |       S 1    |      S 2     |     S 3      |  Pit  |  Out  | Nb de lap|\n");
+  	printf("| Car  | Best lap   |      Current lap     |       S 1    |      S 2     |     S 3      |  Pit  |  Out  | No of lap|\n");
   	printf("|----------|-------------|------------------|--------------|--------------|--------------|-------|-------|-----------|\n");
     for(int i = 0; i < nbrCars; i++){
         printf("|   %2d     |  %.3f\"   |      %.3f\"    |    %.3f\"   |    %.3f\"   |   %.3f\"    |   %d   |  %d    |   %2.0f      |\n", mem.carTab[i].numero, mem.carTab[i].best[3], mem.carTab[i].currentLap, mem.carTab[i].sections[0], mem.carTab[i].sections[1], mem.carTab[i].sections[2], mem.carTab[i].pit, mem.carTab[i].out, mem.carTab[i].tourNbr);
@@ -168,7 +168,7 @@ void tabDisplay(struct SharedMemory *carsTab, int pick){
   }
   else{ //----------------------AFFICHE LES QUALS/ESSAIS--------------
 	printf("|________________________________________________________________________________________________________|\n");
-  	printf("| Car  | Best Tour   |     Tour Actuel      |      S 1     |      S 2     |      S 3     |  Pit  |  Out  |\n");
+  	printf("| Car  | Best lap   |     Current lap      |      S 1     |      S 2     |      S 3     |  Pit  |  Out  |\n");
   	printf("|----------|-------------|------------------|--------------|--------------|--------------|-------|-------|\n");
     for(int i = 0; i < nbrCars; i++){
         printf("|   %2d     |  %.3f\"   |    %3.3f\"      |     %2.3f\"  |     %2.3f\"  |    %2.3f\"   |   %d   |   %d   |\n", mem.carTab[i].numero,mem.carTab[i].best[3], mem.carTab[i].currentLap, mem.carTab[i].sections[0],mem.carTab[i].sections[1], mem.carTab[i].sections[2], mem.carTab[i].pit, mem.carTab[i].out);
@@ -285,7 +285,7 @@ int main(int argc, char *argv[]){
   carsTab = shmat(shmid, NULL, 0);
   int pick = 0;
 
-  printf("Quelle est la taille du circuit ? (en km (int))");
+  printf("How long is the circuit (in km (int))?");
   int circuitSize;
   scanf("%d", &circuitSize);
 
@@ -295,15 +295,15 @@ int main(int argc, char *argv[]){
   while(pick != 10){
     carsTab->nbrCarFinished = 0;
 
-  	printf("Que voulez-vous faire? \n"); // A revoir plus tard si on garde ce menu
-	printf("Pour lancer les essais libres 1  (FP1)  :0\n");
-	printf("Pour lancer les essais libres 2  (FP2)  :1\n");
-	printf("Pour lancer les essais libres 3  (FP3)  :2\n");
-	printf("Pour lancer les qualifications 1 (Q1)  :3\n");
-	printf("Pour lancer les qualifications 2 (Q2)  :4\n");
-	printf("Pour lancer les qualifications 3 (Q3)  :5\n");
-	printf("Pour lancer la course finale           :6\n");
-	printf("Pour quitter le programme              :10\n");
+  	printf("What do you want to do?\n"); 
+	printf("To start free practice 1 (FP1) :0\n");
+	printf("To start free trials 2 (FP2) :1\n");
+	printf("To start free practice 3 (FP3) :2\n");
+	printf("To start qualifying 1 (Q1) :3\n");
+	printf("To start qualifying 2 (Q2) :4\n");
+	printf("Pour lancer les qualifications 3 (Q3) :5\n");
+	printf("To start the final race :6\n");
+	printf("To exit the program :10\n");
     scanf("%d", &pick);
 
     switch(pick){
@@ -311,7 +311,7 @@ int main(int argc, char *argv[]){
       for(int i = 0; i < 20; i++){
         int pid = fork();
         if (pid < 0) {
-          perror("bah zut ça forke pas\n");
+          perror("It's not forking\n");
           return -1;
         }
         else if (pid == 0) {
@@ -325,7 +325,7 @@ int main(int argc, char *argv[]){
       for(int i = 0; i < 20; i++){
         int pid = fork();
         if (pid < 0) {
-          perror("ça forke pasencore aha\n");
+          perror("It's not forking\n");
           return -1;
         }
         else if (pid == 0) {
@@ -339,7 +339,7 @@ int main(int argc, char *argv[]){
       for(int i = 0; i < 20; i++){
         int pid = fork();
         if (pid < 0) {
-          perror("ça forke pas nul\n");
+          perror("It's not forking\n");
           return -1;
         }
         else if (pid == 0) {
@@ -353,7 +353,7 @@ int main(int argc, char *argv[]){
       for(int i = 0; i < 20; i++){
         int pid = fork();
         if (pid < 0) {
-          perror("ça forke paaaaaas\n");
+          perror("It's not forking\n");
           return -1;
         }
         else if (pid == 0) {
@@ -367,7 +367,7 @@ int main(int argc, char *argv[]){
       for(int i = 0; i < 15; i++){
         int pid = fork();
         if (pid < 0) {
-          perror("encore, ça forke pas\n");
+          perror("It's not forking\n");
           return -1;
         }
         else if (pid == 0) {
@@ -381,7 +381,7 @@ int main(int argc, char *argv[]){
       for(int i = 0; i < 10; i++){
         int pid = fork();
         if (pid < 0) {
-          perror("ça forke toujours pas\n");
+          perror("It's not forking\n");
           return -1;
         }
         else if (pid == 0) {
@@ -395,7 +395,7 @@ int main(int argc, char *argv[]){
       for(int i = 0; i < 20; i++){
         int pid = fork();
         if (pid < 0) {
-          perror("ça forke pas\n");
+          perror("It's not forking\n");
           return -1;
         }
         else if (pid == 0) {
